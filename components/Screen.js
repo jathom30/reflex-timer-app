@@ -8,7 +8,16 @@ export default class Screen extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.mainHeader}>{this.props.mainMessage}</Text>
-        <Button title={this.props.title} btnStyle={this.props.btnStyle} activatePress={this.props.activatePress} />
+
+        <View>
+          <Button title="5 sec" btnStyle={button.seconds} activatePress={this.props.activatePress} />
+          <Button title="10 sec" btnStyle={button.seconds} activatePress={this.props.activatePress} />
+          <Button title="15 sec" btnStyle={button.seconds} activatePress={this.props.activatePress} />
+        </View>
+
+        <Text>{this.props.maxRandom}</Text>
+
+        <Button title="Start" btnStyle={button.main} activatePress={this.props.activatePress} />
       </View>
     )
   }
@@ -23,5 +32,20 @@ const styles = StyleSheet.create({
   },
   mainHeader: {
     fontSize: 40,
+  }
+})
+
+const button = StyleSheet.create({
+  main: {
+    backgroundColor: 'lightgreen',
+    padding: 10,
+    fontSize: 30,
+    width: 300,
+    textAlign: 'center',
+  },
+  seconds: {
+    backgroundColor: 'lightblue',
+    padding: 20,
+    margin: 5,
   }
 })

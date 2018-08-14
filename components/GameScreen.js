@@ -151,7 +151,7 @@ export default class GameScreen extends Component {
         <Text>Formatted Time: {this.state.formattedTime}</Text>
 
         {/* user timer stop button */}
-        <Button title="user reflex" btnStyle={this.props.btnStyle} activatePress={this.stopUserTimer} />
+        {this.state.timerRunning ? <Button title="user reflex" btnStyle={this.props.btnStyle} activatePress={this.stopUserTimer} /> : null}
 
         {/* if time is greater than randomMax, hide start/stop button */}
         {this.state.time >= this.state.randomMax ? null : <Button title={this.state.timerRunning ? 'stop timer' : 'start timer'} btnStyle={this.props.btnStyle} activatePress={this.startStop}/>}
