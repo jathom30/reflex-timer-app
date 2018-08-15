@@ -3,7 +3,6 @@ import { StyleSheet, View, Text } from 'react-native';
 
 import Button from './components/Button'
 
-import Screen from './components/Screen'
 import StartScreen from './components/StartScreen'
 import ClockScreen from './components/ClockScreen'
 
@@ -19,11 +18,15 @@ export default class App extends React.Component {
       userTime: 0,
       timeDelta: 0,
       randomReached: false,
-      btnDisabled: true,
-      activeClass: false,
+      deltaArray: [],
+      reflexAverage: 0,
+      reflexHigh: 0,
+      reflexLow: 0,
+      reflexAttempts: 0,
     }
     this.startClock = this.startClock.bind(this)
     this.stopClock = this.stopClock.bind(this)
+    this.reset = this.reset.bind(this)
 
     // random number functions
     this.fiveSec = this.fiveSec.bind(this)
@@ -57,20 +60,55 @@ export default class App extends React.Component {
   
       // find delta and set
       let delta = this.state.userTime - this.state.time
+      // find delta average and set
+      let deltaSum, reflexAverage, reflexLow, reflexHigh
+      if (this.state.deltaArray.length === 0) {
+        reflexAverage = delta
+        reflexHigh = delta
+        reflexLow = delta
+      } else if (this.state.deltaArray.length > 0) {
+        deltaSum = this.state.deltaArray.reduce((total, delta) => total + delta)
+        reflexAverage = deltaSum / this.state.deltaArray.length
+        reflexLow = Math.min(...this.state.deltaArray)
+        reflexHigh = Math.max(...this.state.deltaArray)
+
+        // if delta is lower/higher than current state of array
+        if (delta > reflexHigh) {
+          reflexHigh = delta
+        }
+        if (delta < reflexLow) {
+          reflexLow = delta
+        }
+      }
       this.setState({
         timeDelta: delta,
         start: false,
         time: 0,
         userTime: 0,
+        // adds delta to deltaArray
+        deltaArray: [...this.state.deltaArray, delta],
+        reflexAverage: Math.round(reflexAverage),
+        reflexHigh: reflexHigh,
+        reflexLow: reflexLow,
+        reflexAttempts: this.state.reflexAttempts + 1
       })
     }
+  }
+
+  reset() {
+    this.setState({
+      deltaArray: [],
+      reflexAverage: 0,
+      reflexHigh: 0,
+      reflexLow: 0,
+      reflexAttempts: 0,
+    })
   }
 
   // random number functions
   fiveSec() {
     this.setState({
       maxRandom: 5000,
-      activeClass: true,
     })
   }
   tenSec() {
@@ -109,6 +147,7 @@ export default class App extends React.Component {
             stopClock={this.stopClock}
             time={this.state.time}
             userTime={this.state.userTime}
+            randomNumber={this.state.randomNumber}
             btnDisabled={this.state.btnDisabled} /> 
           : 
           <StartScreen 
@@ -118,7 +157,13 @@ export default class App extends React.Component {
             fifteenSec={this.fifteenSec}
             maxRandom={this.state.maxRandom}
             timeDelta={this.state.timeDelta}
-            startClock={this.startClock} /> }
+            startClock={this.startClock}
+            reflexAverage={this.state.reflexAverage}
+            reflexLow={this.state.reflexLow}
+            reflexHigh={this.state.reflexHigh}
+            reflexAttempts={this.state.reflexAttempts}
+            reset={this.reset} /> 
+        }
 
       </View>
     );
@@ -129,7 +174,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'tomato',
+    backgroundColor: '#DDFFFF',
     alignItems: 'stretch',
     justifyContent: 'space-around',
   },
