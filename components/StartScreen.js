@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 import Button from './Button'
+import Results from './Results'
 
 export default class StartScreen extends Component {
 
@@ -11,7 +12,7 @@ export default class StartScreen extends Component {
       <View style={styles.container}>
         <Text style={styles.mainHeader}>Test your reflexes</Text>
           <View>
-            {/* <Text style={styles.subHeader}>Set your random time ceiling</Text> */}
+            <Text style={styles.subHeader}>Set your max limit</Text>
             // TODO: create active class for button
             <Button title="5 seconds" touchableStyle={this.props.maxRandom === 5000 ? [button.seconds, button.active] : button.seconds } btnTextStyle={btnText.time} activatePress={this.props.fiveSec} />
             <Button title="10 seconds" touchableStyle={this.props.maxRandom === 10000 ? [button.seconds, button.active] : button.seconds } btnTextStyle={btnText.time} activatePress={this.props.tenSec} />
@@ -19,20 +20,25 @@ export default class StartScreen extends Component {
           </View>
 
           {this.props.reflexAttempts > 0 ? 
-            <View style={styles.results}>
-              <Text style={styles.resultsText}>Delta: {this.props.timeDelta}</Text>
-              <Text style={styles.resultsText}>Delta Low: {this.props.reflexLow}</Text>
-              <Text style={styles.resultsText}>Delta High: {this.props.reflexHigh}</Text>
-              <Text style={styles.resultsText}>Delta Average: {this.props.reflexAverage}</Text>
-              <Text style={styles.resultsText}>Reflex Attempts: {this.props.reflexAttempts}</Text>
-              <Button title="RESET" touchableStyle={button.reset} btnTextStyle={btnText.reset} activatePress={this.props.reset} />
-            </View>
+            <Results 
+              timeDelta={this.props.timeDelta}
+              reflexLow={this.props.reflexLow}
+              reflexHigh={this.props.reflexHigh}
+              reflexAverage={this.props.reflexAverage}
+              reflexAttempts={this.props.reflexAttempts}
+              reset={this.props.reset} />
             : 
             null 
           }
 
-
-          <Button title="S T A R T" touchableStyle={button.main} btnTextStyle={btnText.main} activatePress={this.props.startClock} />
+          <View style={styles.buttonGroup}>
+            { this.props.reflexAttempts !== 0 ?
+              <Button title="reset" touchableStyle={[button.main, {backgroundColor: 'tomato'}]} btnTextStyle={btnText.main} activatePress={this.props.reset} />
+              :
+              null
+            }
+            <Button title={this.props.reflexAttempts === 0 ? 'S T A R T' : 'Try Again?' } touchableStyle={this.props.reflexAttempts === 0 ? [button.main, {backgroundColor: 'lightblue'}, {width: '75%'}] : [button.main, {backgroundColor: 'lightblue'}]} btnTextStyle={btnText.main} activatePress={this.props.startClock} />
+          </View>
       </View>
     )
   }
@@ -40,10 +46,12 @@ export default class StartScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 2,
     // backgroundColor: 'red',
     // alignItems: 'stretch',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
+    marginTop: 50,
+    marginBottom: 50,
   },
   mainHeader: {
     fontSize: 50,
@@ -54,32 +62,24 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 10,
   },
-  results: {
+  buttonGroup: {
+    // flex: 1,
+    flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#A1FAFA',
-    padding: 10,
+    justifyContent: 'space-around',
   },
-  resultsText: {
-    fontSize: 25,
-    padding: 5,
-    // color: 'white',
-  }
 });
 
 const button = StyleSheet.create({
   main: {
     backgroundColor: '#39FC8B',
-    width: '75%',
-    // height: 70,
     padding: 20,
     borderRadius: 15,
-    borderColor: 'white',
-    borderWidth: 3,
     alignSelf: 'center',
     justifyContent: 'center',
   },
   seconds: {
-    backgroundColor: '#B2FED2',
+    backgroundColor: 'lightblue',
     width: '75%',
     padding: 20,
     margin: 5,
@@ -88,7 +88,7 @@ const button = StyleSheet.create({
     justifyContent: 'center',
   },
   active: {
-    backgroundColor: '#39FC8B'
+    backgroundColor: 'blue'
   },
   reset: {
     backgroundColor: '#D75A5A',
@@ -96,23 +96,23 @@ const button = StyleSheet.create({
     padding: 10,
     borderRadius: 20,
     marginTop: 10,
-  }
+  },
 })
 
 const btnText = StyleSheet.create({
   main: {
     fontSize: 45,
     alignSelf: 'center',
-
+    color: 'white',
   },
   time: {
     fontSize: 25,
     alignSelf: 'center',
-    
+    color: 'white',
   },
-  reset: {
+  resetText: {
     color: 'white',
     fontSize: 25,
     alignSelf: 'center',
-  }
+  },
 })
