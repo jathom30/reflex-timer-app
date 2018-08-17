@@ -9,7 +9,7 @@ export default class StartScreen extends Component {
   
   render() {
     return(
-      <View style={styles.container}>
+      <View style={this.props.reflexAttempts === 0 ? [styles.container, {marginBottom: 50}] : [styles.container, {borderBottomColor: 'white', borderBottomWidth: 2}]}>
         <Text style={styles.mainHeader}>Test your reflexes</Text>
           <View>
             <Text style={styles.subHeader}>Set your max limit</Text>
@@ -26,19 +26,23 @@ export default class StartScreen extends Component {
               reflexHigh={this.props.reflexHigh}
               reflexAverage={this.props.reflexAverage}
               reflexAttempts={this.props.reflexAttempts}
+              earlyAttempts={this.props.earlyAttempts}
               reset={this.props.reset} />
             : 
             null 
           }
 
-          <View style={styles.buttonGroup}>
+          {/* Show reset button if attempts is great than 0 */}
+          <View style={this.props.reflexAttempts === 0 ? [styles.buttonGroup, {justifyContent: 'space-around',}] : [styles.buttonGroup, {alignItems: 'stretch', width: '100%', backgroundColor: 'purple', alignContent: 'stretch'}]}>
             { this.props.reflexAttempts !== 0 ?
-              <Button title="reset" touchableStyle={[button.main, {backgroundColor: 'tomato'}]} btnTextStyle={btnText.main} activatePress={this.props.reset} />
+              <Button title="reset" touchableStyle={[button.shareSpace, {backgroundColor: 'tomato', borderRightColor: 'white', borderRightWidth: 2}]} btnTextStyle={btnText.main} activatePress={this.props.reset} />
               :
               null
             }
-            <Button title={this.props.reflexAttempts === 0 ? 'S T A R T' : 'Try Again?' } touchableStyle={this.props.reflexAttempts === 0 ? [button.main, {backgroundColor: 'lightblue'}, {width: '75%'}] : [button.main, {backgroundColor: 'lightblue'}]} btnTextStyle={btnText.main} activatePress={this.props.startClock} />
+
+            <Button title={this.props.reflexAttempts === 0 ? 'S T A R T' : 'Try Again?' } touchableStyle={this.props.reflexAttempts === 0 ? [button.main, {width: '75%'}] : button.shareSpace} btnTextStyle={btnText.main} activatePress={this.props.startClock} />
           </View>
+          
       </View>
     )
   }
@@ -51,7 +55,7 @@ const styles = StyleSheet.create({
     // alignItems: 'stretch',
     justifyContent: 'space-between',
     marginTop: 50,
-    marginBottom: 50,
+    // marginBottom: 50,
   },
   mainHeader: {
     fontSize: 50,
@@ -65,14 +69,14 @@ const styles = StyleSheet.create({
   buttonGroup: {
     // flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    // alignItems: 'center',
+    // justifyContent: 'space-around',
   },
 });
 
 const button = StyleSheet.create({
   main: {
-    backgroundColor: '#39FC8B',
+    backgroundColor: 'lightblue',
     padding: 20,
     borderRadius: 15,
     alignSelf: 'center',
@@ -97,6 +101,13 @@ const button = StyleSheet.create({
     borderRadius: 20,
     marginTop: 10,
   },
+  shareSpace: {
+    backgroundColor: 'lightblue',
+    padding: 20,
+    alignSelf: 'stretch',
+    flex: 1,
+    maxHeight: 100,
+  }
 })
 
 const btnText = StyleSheet.create({

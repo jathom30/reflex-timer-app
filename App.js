@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
-import Button from './components/Button'
 
 import StartScreen from './components/StartScreen'
 import ClockScreen from './components/ClockScreen'
+import Button from './components/Button'
+// import Test from './components/Test'
+import ShowAllResults from './components/ShowAllResults';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -23,6 +25,8 @@ export default class App extends React.Component {
       reflexHigh: 0,
       reflexLow: 0,
       reflexAttempts: 0,
+      earlyAttempts: 0,
+      details: false,
     }
     this.startClock = this.startClock.bind(this)
     this.threeSecDelay = this.threeSecDelay.bind(this)
@@ -34,6 +38,7 @@ export default class App extends React.Component {
     this.tenSec = this.tenSec.bind(this)
     this.fifteenSec = this.fifteenSec.bind(this)
     this.randomNumber = this.randomNumber.bind(this)
+    this.showDetails = this.showDetails.bind(this)
   }
 
   // start stopwatches(user and master) after countdown is finished
@@ -107,6 +112,10 @@ export default class App extends React.Component {
         reflexLow: reflexLow,
         reflexAttempts: this.state.reflexAttempts + 1
       })
+    } else {
+      this.setState({
+        earlyAttempts: this.state.earlyAttempts + 1
+      })
     }
   }
 
@@ -117,6 +126,7 @@ export default class App extends React.Component {
       reflexHigh: 0,
       reflexLow: 0,
       reflexAttempts: 0,
+      earlyAttempts: 0,
     })
   }
 
@@ -139,6 +149,12 @@ export default class App extends React.Component {
   randomNumber() {
     this.setState({
       randomNumber: 500 + (Math.floor(Math.random() * this.state.maxRandom))
+    })
+  }
+
+  showDetails() {
+    this.setState({
+      details: !this.state.details,
     })
   }
 
@@ -183,37 +199,42 @@ export default class App extends React.Component {
             reflexLow={this.state.reflexLow}
             reflexHigh={this.state.reflexHigh}
             reflexAttempts={this.state.reflexAttempts}
+            earlyAttempts={this.state.earlyAttempts}
             reset={this.reset} /> 
         }
-        {/*  // ! Test component !
-          <View style={styles.test}>
-          <Text>Time: {this.state.time}</Text>
-          <Text>User Time: {this.state.userTime}</Text>
-          <Text>Random number: {this.state.randomNumber}</Text>
-          <Text>countdown Time: {this.state.countdownTime}</Text>
-          <Text>Delta: {this.state.timeDelta}</Text>
-          <Text>Delta Low: {this.state.reflexLow}</Text>
-          <Text>Delta High: {this.state.reflexHigh}</Text>
-          <Text>Delta High: {this.state.reflexHigh}</Text>
-          <Text>Delta Average: {this.state.reflexAverage}</Text>
-          <Text>Attempts: {this.state.reflexAttempts}</Text>
-          <Text>Start? {this.state.start ? 'START' : 'FALSE'}</Text>
-        </View> */}
+
+        { 
+          this.state.details 
+          ? 
+          <ShowAllResults 
+            deltaArray={this.state.deltaArray}
+            reflexHigh={this.state.reflexHigh}
+            reflexLow={this.state.reflexLow}
+            reflexAverage={this.state.reflexAverage} /> 
+          : 
+          null 
+        }
+
+        { this.state.reflexAttempts > 1 && !this.state.start ? <Button title={ this.state.details ? "Hide Results" : "Full Results" } touchableStyle={styles.button} btnTextStyle={styles.buttonText} activatePress={this.showDetails} /> : null }
+
+         {/* // ! Test component !
+          <Test 
+            time={this.state.time}
+            userTime={this.state.userTime}
+            randomNumber={this.state.randomNumber}
+            countdownTime={this.state.countdownTime}
+            delta={this.state.delta}
+            reflexLow={this.state.reflexLow}
+            reflexHigh={this.state.reflexHigh}
+            reflexAverage={this.state.reflexAverage}
+            reflexAttempts={this.state.reflexAttempts}
+            earlyAttempts={this.state.earlyAttempts}
+            start={this.state.start} /> */}
 
       </View>
     );
   }
 }
-
-// timeDelta: delta,
-// internalTime: 0,
-// // adds delta to deltaArray
-// deltaArray: [...this.state.deltaArray, delta],
-// reflexAverage: Math.round(reflexAverage),
-// reflexHigh: reflexHigh,
-// reflexLow: reflexLow,
-// reflexAttempts: this.state.reflexAttempts + 1
-
 
 const styles = StyleSheet.create({
   container: {
@@ -225,10 +246,15 @@ const styles = StyleSheet.create({
   mainHeader: {
     fontSize: 40,
   },
-  test: {
-    backgroundColor: 'white',
-    marginBottom: 50,
-    flex: 1,
-    alignItems: 'center',
-  }
+  button: {
+    backgroundColor: '#39FC8B',
+    padding: 20,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    fontSize: 45,
+    alignSelf: 'center',
+    color: 'white',
+  },
 });

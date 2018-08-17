@@ -27,7 +27,7 @@ export default class ClockScreen extends Component {
     // reset styles on exit
     styles.fullscreen = {
       paddingTop: 50,
-      backgroundColor: '#EADFDF',
+      backgroundColor: '#f9fbff',
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',}
