@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { StyleSheet, Text, View } from "react-native"
 
 export default class ShowAllResults extends Component {
@@ -37,18 +37,20 @@ export default class ShowAllResults extends Component {
   render() {
 
     let eachResult = this.formatArray(this.props.deltaArray).map((number, index) =>
-      <Text key={index}>{index + 1}: {number}</Text>
+      <Text style={styles.dataBlock} key={index}><Text style={styles.bold}>{index + 1}:</Text> {number}</Text>
     )
 
     return(
       <View style={styles.main}>
-        <Text>Full Results</Text>
-        {eachResult}
-        <View>
-          <Text>High Low Average</Text>
-          <Text>Slowest Time: {this.formatNumbers(this.props.reflexHigh)}</Text>
-          <Text>Fastest Time: {this.formatNumbers(this.props.reflexLow)}</Text>
-          <Text>Average: {this.formatNumbers(this.props.reflexAverage)}</Text>
+        <Text style={styles.header}>Full Results</Text>
+        <View style={styles.dataRow}>
+          {eachResult}
+        </View>
+        <View style={styles.data}>
+          {/* <Text style={styles.subHeader}>High Low Average</Text> */}
+          <Text style={styles.dataCell}><Text style={styles.bold}>Slowest Time:</Text> {this.formatNumbers(this.props.reflexHigh)}</Text>
+          <Text style={styles.dataCell}><Text style={styles.bold}>Fastest Time:</Text> {this.formatNumbers(this.props.reflexLow)}</Text>
+          <Text style={styles.dataCell}><Text style={styles.bold}>Average:</Text> {this.formatNumbers(this.props.reflexAverage)}</Text>
         </View>
       </View>
     )
@@ -64,11 +66,42 @@ const styles = StyleSheet.create({
     right: 20,
     backgroundColor: 'white',
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.25,
     shadowRadius: 10,
   },
+  header: {
+    fontSize: 40,
+    textAlign: 'center',
+    paddingTop: 20,
+  },
+  subHeader: {
+    fontSize: 20,
+  },
+  data: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  dataRow: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    alignContent: 'center',
+    // backgroundColor: 'pink',
+    padding: 20,
+  },
+  dataBlock: {
+    margin: 5,
+    fontSize: 20,
+  },
+  dataCell: {
+    alignItems: 'center',
+    fontSize: 25,
+  },
+  bold: {
+    fontWeight: 'bold',
+  }
 })

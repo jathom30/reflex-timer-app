@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native"
+import React, { Component } from 'react'
+import { StyleSheet, Text, View } from "react-native"
 
 
 export default class Results extends Component {
@@ -33,11 +33,7 @@ export default class Results extends Component {
           ? 
           null 
           :
-          <Fragment>
-            {/* <Text style={styles.resultsText}>Fastest time: {this.formatNumbers(this.props.reflexLow)}</Text>
-            <Text style={styles.resultsText}>Slowest time: {this.formatNumbers(this.props.reflexHigh)}</Text> */}
-            <Text style={styles.resultsText}>Attempts: {this.props.reflexAttempts}</Text>
-          </Fragment>
+          <Text style={styles.resultsText}>Attempts: {this.props.reflexAttempts}</Text>
         }
         {/*  Early hits */}
         {this.props.earlyAttempts !== 0 ? <Text style={styles.resultsText}>Early Hits: {this.props.earlyAttempts}</Text> : null }

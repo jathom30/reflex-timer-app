@@ -33,7 +33,7 @@ export default class StartScreen extends Component {
           }
 
           {/* Show reset button if attempts is great than 0 */}
-          <View style={this.props.reflexAttempts === 0 ? [styles.buttonGroup, {justifyContent: 'space-around',}] : [styles.buttonGroup, {alignItems: 'stretch', width: '100%', backgroundColor: 'purple', alignContent: 'stretch'}]}>
+          <View style={this.props.reflexAttempts === 0 ? [styles.buttonGroup, {justifyContent: 'space-around',}] : [styles.buttonGroup, {alignItems: 'stretch', width: '100%', alignItems: 'stretch'}]}>
             { this.props.reflexAttempts !== 0 ?
               <Button title="reset" touchableStyle={[button.shareSpace, {backgroundColor: 'tomato', borderRightColor: 'white', borderRightWidth: 2}]} btnTextStyle={btnText.main} activatePress={this.props.reset} />
               :

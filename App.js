@@ -78,14 +78,12 @@ export default class App extends React.Component {
       // find delta and set
       let delta = this.state.userTime - this.state.time
       // find delta average and set
-      let deltaSum, reflexAverage, reflexLow, reflexHigh
+      let reflexAverage, reflexLow, reflexHigh
       if (this.state.deltaArray.length === 0) {
         reflexAverage = delta
         reflexHigh = delta
         reflexLow = delta
       } else if (this.state.deltaArray.length > 0) {
-        deltaSum = this.state.deltaArray.reduce((total, delta) => total + delta)
-        reflexAverage = deltaSum / this.state.deltaArray.length
         reflexLow = Math.min(...this.state.deltaArray)
         reflexHigh = Math.max(...this.state.deltaArray)
 
@@ -153,8 +151,11 @@ export default class App extends React.Component {
   }
 
   showDetails() {
+    let delta = this.state.userTime - this.state.time
+    let deltaSum = this.state.deltaArray.reduce((total, delta) => total + delta)
     this.setState({
       details: !this.state.details,
+      reflexAverage: Math.round(deltaSum / this.state.deltaArray.length)
     })
   }
 
@@ -177,7 +178,9 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
 
-        {this.state.start ? 
+        {
+          this.state.start 
+          ? 
           <ClockScreen 
             stopClock={this.stopClock}
             time={this.state.time}
@@ -202,6 +205,12 @@ export default class App extends React.Component {
             earlyAttempts={this.state.earlyAttempts}
             reset={this.reset} /> 
         }
+
+        {/* <ShowAllResults 
+          deltaArray={this.state.deltaArray}
+          reflexHigh={this.state.reflexHigh}
+          reflexLow={this.state.reflexLow}
+          reflexAverage={this.state.reflexAverage} />  */}
 
         { 
           this.state.details 
