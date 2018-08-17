@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View } from "react-native"
 
+import Button from './Button'
+
 export default class ShowAllResults extends Component {
 
   formatNumbers(basicNumber) {
@@ -52,6 +54,7 @@ export default class ShowAllResults extends Component {
           <Text style={styles.dataCell}><Text style={styles.bold}>Fastest Time:</Text> {this.formatNumbers(this.props.reflexLow)}</Text>
           <Text style={styles.dataCell}><Text style={styles.bold}>Average:</Text> {this.formatNumbers(this.props.reflexAverage)}</Text>
         </View>
+        <Button title="Hide"  btnTextStyle={[styles.header, {backgroundColor: '#39FC8B'}]} activatePress={this.props.showDetails} />
       </View>
     )
   }
@@ -66,15 +69,18 @@ const styles = StyleSheet.create({
     right: 20,
     backgroundColor: 'white',
     flex: 1,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
+    borderRadius: 20,
+    overflow: 'hidden',
+    borderColor: 'black',
+    borderWidth: 2,
   },
   header: {
     fontSize: 40,
     textAlign: 'center',
     paddingTop: 20,
+    paddingBottom: 20,
+    backgroundColor: 'black',
+    color: 'white',
   },
   subHeader: {
     fontSize: 20,

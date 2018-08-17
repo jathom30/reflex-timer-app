@@ -9,7 +9,7 @@ export default class StartScreen extends Component {
   
   render() {
     return(
-      <View style={this.props.reflexAttempts === 0 ? [styles.container, {marginBottom: 50}] : [styles.container, {borderBottomColor: 'white', borderBottomWidth: 2}]}>
+      <View style={this.props.reflexAttempts === 0 ? [styles.container, {marginBottom: 50}] : styles.container}>
         <Text style={styles.mainHeader}>Test your reflexes</Text>
           <View>
             <Text style={styles.subHeader}>Set your max limit</Text>
@@ -32,15 +32,19 @@ export default class StartScreen extends Component {
             null 
           }
 
-          {/* Show reset button if attempts is great than 0 */}
-          <View style={this.props.reflexAttempts === 0 ? [styles.buttonGroup, {justifyContent: 'space-around',}] : [styles.buttonGroup, {alignItems: 'stretch', width: '100%', alignItems: 'stretch'}]}>
-            { this.props.reflexAttempts !== 0 ?
-              <Button title="reset" touchableStyle={[button.shareSpace, {backgroundColor: 'tomato', borderRightColor: 'white', borderRightWidth: 2}]} btnTextStyle={btnText.main} activatePress={this.props.reset} />
-              :
-              null
-            }
+          { this.props.reflexAttempts > 1 && !this.props.start && !this.props.details ? <Button title={ this.props.details ? "Hide Results" : "Full Results" } touchableStyle={[button.seconds, {backgroundColor: '#39FC8B'}]} btnTextStyle={btnText.details} activatePress={this.props.showDetails} /> : null }
 
-            <Button title={this.props.reflexAttempts === 0 ? 'S T A R T' : 'Try Again?' } touchableStyle={this.props.reflexAttempts === 0 ? [button.main, {width: '75%'}] : button.shareSpace} btnTextStyle={btnText.main} activatePress={this.props.startClock} />
+          {/* Show reset button if attempts is great than 0 */}
+          <View style={{alignItems: 'center'}}>
+            <View style={styles.buttonGroup}>
+              { this.props.reflexAttempts !== 0 ?
+                <Button title="Reset" touchableStyle={button.reset} btnTextStyle={btnText.resetText} activatePress={this.props.reset} />
+                :
+                null
+              }
+
+              <Button title={this.props.reflexAttempts === 0 ? 'S T A R T' : 'Try Again?' } touchableStyle={this.props.reflexAttempts === 0 ? [button.reset, {backgroundColor: 'lightblue', width: '85%'}] : [button.reset, {backgroundColor: 'lightblue',}]} btnTextStyle={btnText.resetText} activatePress={this.props.startClock} />
+            </View>
           </View>
           
       </View>
@@ -50,7 +54,7 @@ export default class StartScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 1,
     // backgroundColor: 'red',
     // alignItems: 'stretch',
     justifyContent: 'space-between',
@@ -69,8 +73,12 @@ const styles = StyleSheet.create({
   buttonGroup: {
     // flex: 1,
     flexDirection: 'row',
+    paddingBottom: 50,
+    // height: 200,
+    // backgroundColor: 'pink',
     // alignItems: 'center',
-    // justifyContent: 'space-around',
+    justifyContent: 'space-around',
+    width: '85%',
   },
 });
 
@@ -78,7 +86,7 @@ const button = StyleSheet.create({
   main: {
     backgroundColor: 'lightblue',
     padding: 20,
-    borderRadius: 15,
+    borderRadius: 5,
     alignSelf: 'center',
     justifyContent: 'center',
   },
@@ -96,9 +104,9 @@ const button = StyleSheet.create({
   },
   reset: {
     backgroundColor: '#D75A5A',
-    width: '50%',
-    padding: 10,
-    borderRadius: 20,
+    // width: '50%',
+    padding: 20,
+    borderRadius: 5,
     marginTop: 10,
   },
   shareSpace: {
@@ -107,12 +115,18 @@ const button = StyleSheet.create({
     alignSelf: 'stretch',
     flex: 1,
     maxHeight: 100,
-  }
+  },
+  details: {
+    backgroundColor: '#39FC8B',
+    padding: 20,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+  },
 })
 
 const btnText = StyleSheet.create({
   main: {
-    fontSize: 45,
+    fontSize: 40,
     alignSelf: 'center',
     color: 'white',
   },
@@ -125,5 +139,10 @@ const btnText = StyleSheet.create({
     color: 'white',
     fontSize: 25,
     alignSelf: 'center',
+  },
+  details: {
+    fontSize: 35,
+    alignSelf: 'center',
+    color: 'white',
   },
 })

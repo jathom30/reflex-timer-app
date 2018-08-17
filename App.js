@@ -46,6 +46,7 @@ export default class App extends React.Component {
     // start game-> sends to timer screen
     this.setState({
       start: true,
+      details: false,
     })
     // countdown timer, starts at 3 and counts down
     this.countdownTimer = setInterval(() => this.setState({countdownTime: this.state.countdownTime - 1}), 1000)
@@ -108,11 +109,11 @@ export default class App extends React.Component {
         reflexAverage: Math.round(reflexAverage),
         reflexHigh: reflexHigh,
         reflexLow: reflexLow,
-        reflexAttempts: this.state.reflexAttempts + 1
+        reflexAttempts: this.state.reflexAttempts + 1,
       })
     } else {
       this.setState({
-        earlyAttempts: this.state.earlyAttempts + 1
+        earlyAttempts: this.state.earlyAttempts + 1,
       })
     }
   }
@@ -125,6 +126,7 @@ export default class App extends React.Component {
       reflexLow: 0,
       reflexAttempts: 0,
       earlyAttempts: 0,
+      details: false,
     })
   }
 
@@ -191,6 +193,9 @@ export default class App extends React.Component {
             start={this.state.start} /> 
           : 
           <StartScreen 
+            start={this.state.start}
+            details={this.state.details}
+            showDetails={this.showDetails}
             fiveSec={this.fiveSec}
             activeClass={this.state.activeClass}
             tenSec={this.tenSec}
@@ -219,12 +224,11 @@ export default class App extends React.Component {
             deltaArray={this.state.deltaArray}
             reflexHigh={this.state.reflexHigh}
             reflexLow={this.state.reflexLow}
-            reflexAverage={this.state.reflexAverage} /> 
+            reflexAverage={this.state.reflexAverage}
+            showDetails={this.showDetails} /> 
           : 
           null 
         }
-
-        { this.state.reflexAttempts > 1 && !this.state.start ? <Button title={ this.state.details ? "Hide Results" : "Full Results" } touchableStyle={styles.button} btnTextStyle={styles.buttonText} activatePress={this.showDetails} /> : null }
 
          {/* // ! Test component !
           <Test 
@@ -254,16 +258,5 @@ const styles = StyleSheet.create({
   },
   mainHeader: {
     fontSize: 40,
-  },
-  button: {
-    backgroundColor: '#39FC8B',
-    padding: 20,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    fontSize: 45,
-    alignSelf: 'center',
-    color: 'white',
   },
 });
