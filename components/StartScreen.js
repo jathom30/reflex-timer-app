@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 import Button from './Button'
-import Results from './Results'
+import Choices from './Choices'
+import ShowAllResults from './ShowAllResults';
 
 export default class StartScreen extends Component {
 
@@ -10,40 +11,50 @@ export default class StartScreen extends Component {
   render() {
     return(
       <View style={this.props.reflexAttempts === 0 ? [styles.container, {marginBottom: 50}] : styles.container}>
-        <Text style={styles.mainHeader}>Test your reflexes</Text>
-          <View>
-            <Text style={styles.subHeader}>Set your max limit</Text>
-            // TODO: create active class for button
-            <Button title="5 seconds" touchableStyle={this.props.maxRandom === 5000 ? [button.seconds, button.active] : button.seconds } btnTextStyle={btnText.time} activatePress={this.props.fiveSec} />
-            <Button title="10 seconds" touchableStyle={this.props.maxRandom === 10000 ? [button.seconds, button.active] : button.seconds } btnTextStyle={btnText.time} activatePress={this.props.tenSec} />
-            <Button title="15 seconds" touchableStyle={this.props.maxRandom === 15000 ? [button.seconds, button.active] : button.seconds } btnTextStyle={btnText.time} activatePress={this.props.fifteenSec} />
-          </View>
-
-          {this.props.reflexAttempts > 0 ? 
-            <Results 
+        <Text style={styles.mainHeader}>{!this.props.details ? "Test your reflexes" : "Full Results"}</Text>
+          
+          {/* show either second buttons or data */}
+          {
+            !this.props.details 
+            ? 
+            <Choices
+              maxRandom={this.props.maxRandom}
+              fiveSec={this.props.fiveSec}
+              tenSec={this.props.tenSec}
+              tenSec={this.props.tenSec}
+              fifteenSec={this.props.fifteenSec}
+              reflexAttempts={this.props.reflexAttempts}
               timeDelta={this.props.timeDelta}
               reflexLow={this.props.reflexLow}
               reflexHigh={this.props.reflexHigh}
-              reflexAverage={this.props.reflexAverage}
-              reflexAttempts={this.props.reflexAttempts}
               earlyAttempts={this.props.earlyAttempts}
+              reflexAverage={this.props.reflexAverage}
               reset={this.props.reset} />
-            : 
-            null 
+            :
+            <ShowAllResults 
+              deltaArray={this.props.deltaArray}
+              reflexHigh={this.props.reflexHigh}
+              reflexLow={this.props.reflexLow}
+              reflexAttempts={this.props.reflexAttempts}
+              reflexAverage={this.props.reflexAverage}
+              showDetails={this.props.showDetails}
+              startClock={this.props.startClock}
+              reset={this.props.reset} />
           }
 
-          { this.props.reflexAttempts > 1 && !this.props.start && !this.props.details ? <Button title={ this.props.details ? "Hide Results" : "Full Results" } touchableStyle={[button.seconds, {backgroundColor: '#39FC8B'}]} btnTextStyle={btnText.details} activatePress={this.props.showDetails} /> : null }
+          {/* show results button if more than 1 attempt */}
+          {this.props. reflexAttempts > 1 ? <Button title={this.props.details ? "Hide" : "Full Results"} touchableStyle={[button.seconds, {backgroundColor: '#55efc4'}]} btnTextStyle={btnText.details} activatePress={this.props.showDetails} /> : null}
 
           {/* Show reset button if attempts is great than 0 */}
           <View style={{alignItems: 'center'}}>
             <View style={styles.buttonGroup}>
               { this.props.reflexAttempts !== 0 ?
-                <Button title="Reset" touchableStyle={button.reset} btnTextStyle={btnText.resetText} activatePress={this.props.reset} />
+                <Button title="Reset" touchableStyle={[button.reset, {marginRight: 2.5}]} btnTextStyle={btnText.resetText} activatePress={this.props.reset} />
                 :
                 null
               }
 
-              <Button title={this.props.reflexAttempts === 0 ? 'S T A R T' : 'Try Again?' } touchableStyle={this.props.reflexAttempts === 0 ? [button.reset, {backgroundColor: 'lightblue', width: '85%'}] : [button.reset, {backgroundColor: 'lightblue',}]} btnTextStyle={btnText.resetText} activatePress={this.props.startClock} />
+              <Button title={this.props.reflexAttempts === 0 ? 'S T A R T' : 'Try Again?' } touchableStyle={this.props.reflexAttempts === 0 ? [button.reset, {backgroundColor: '#74b9ff', width: '85%'}] : [button.reset, {backgroundColor: '#74b9ff', marginLeft: 2.5}]} btnTextStyle={btnText.resetText} activatePress={this.props.startClock} />
             </View>
           </View>
           
@@ -55,20 +66,25 @@ export default class StartScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: 'red',
+    // backgroundColor: 'pink',
     // alignItems: 'stretch',
     justifyContent: 'space-between',
-    marginTop: 50,
+    // marginTop: 50,
     // marginBottom: 50,
   },
   mainHeader: {
     fontSize: 50,
-    textAlign: 'center'
+    textAlign: 'center',
+    backgroundColor: '#2d3436',
+    color: 'white',
+    paddingTop: 50,
+    paddingBottom: 10,
   },
   subHeader: {
     fontSize: 30,
     textAlign: 'center',
     marginBottom: 10,
+    color: 'white',
   },
   buttonGroup: {
     // flex: 1,
@@ -77,22 +93,22 @@ const styles = StyleSheet.create({
     // height: 200,
     // backgroundColor: 'pink',
     // alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     width: '85%',
   },
 });
 
 const button = StyleSheet.create({
   main: {
-    backgroundColor: 'lightblue',
+    backgroundColor: '#6c5ce7',
     padding: 20,
     borderRadius: 5,
     alignSelf: 'center',
     justifyContent: 'center',
   },
   seconds: {
-    backgroundColor: 'lightblue',
-    width: '75%',
+    backgroundColor: '#a29bfe',
+    width: '85%',
     padding: 20,
     margin: 5,
     borderRadius: 5,
@@ -100,18 +116,21 @@ const button = StyleSheet.create({
     justifyContent: 'center',
   },
   active: {
-    backgroundColor: 'blue'
+    backgroundColor: '#6c5ce7'
   },
   reset: {
-    backgroundColor: '#D75A5A',
-    // width: '50%',
+    backgroundColor: '#ff7675',
+    flex: 1,
     padding: 20,
+    // margin: 10,
     borderRadius: 5,
-    marginTop: 10,
+    // width: '45%'
+    // marginLeft: 5
+    // marginTop: 10,
   },
   shareSpace: {
     backgroundColor: 'lightblue',
-    padding: 20,
+    width: '85%',
     alignSelf: 'stretch',
     flex: 1,
     maxHeight: 100,

@@ -44,17 +44,17 @@ export default class ShowAllResults extends Component {
 
     return(
       <View style={styles.main}>
-        <Text style={styles.header}>Full Results</Text>
         <View style={styles.dataRow}>
           {eachResult}
         </View>
         <View style={styles.data}>
-          {/* <Text style={styles.subHeader}>High Low Average</Text> */}
           <Text style={styles.dataCell}><Text style={styles.bold}>Slowest Time:</Text> {this.formatNumbers(this.props.reflexHigh)}</Text>
           <Text style={styles.dataCell}><Text style={styles.bold}>Fastest Time:</Text> {this.formatNumbers(this.props.reflexLow)}</Text>
           <Text style={styles.dataCell}><Text style={styles.bold}>Average:</Text> {this.formatNumbers(this.props.reflexAverage)}</Text>
         </View>
-        <Button title="Hide"  btnTextStyle={[styles.header, {backgroundColor: '#39FC8B'}]} activatePress={this.props.showDetails} />
+
+        {/* <Button title="Hide"  touchableStyle={[button.seconds, {backgroundColor: '#55efc4'}]} btnTextStyle={btnText.details} activatePress={this.props.showDetails} /> */}
+
       </View>
     )
   }
@@ -62,24 +62,16 @@ export default class ShowAllResults extends Component {
 
 const styles = StyleSheet.create({
   main: {
-    position: 'absolute',
-    top: 40,
-    bottom: 120,
-    left: 20,
-    right: 20,
-    backgroundColor: 'white',
     flex: 1,
-    borderRadius: 20,
-    overflow: 'hidden',
-    borderColor: 'black',
-    borderWidth: 2,
+    justifyContent: 'space-between',
+    // backgroundColor: 'black',
   },
   header: {
-    fontSize: 40,
+    fontSize: 50,
     textAlign: 'center',
-    paddingTop: 20,
-    paddingBottom: 20,
-    backgroundColor: 'black',
+    paddingTop: 50,
+    paddingBottom: 10,
+    backgroundColor: '#2d3436',
     color: 'white',
   },
   subHeader: {
@@ -91,23 +83,102 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   dataRow: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     alignContent: 'center',
     // backgroundColor: 'pink',
     padding: 20,
+    // width: '85%'
   },
   dataBlock: {
     margin: 5,
     fontSize: 20,
+    color: 'white',
   },
   dataCell: {
     alignItems: 'center',
     fontSize: 25,
+    color: 'white',
   },
   bold: {
     fontWeight: 'bold',
-  }
+  },
+  buttonGroup: {
+    // flex: 1,
+    flexDirection: 'row',
+    paddingBottom: 50,
+    // height: 200,
+    // backgroundColor: 'pink',
+    // alignItems: 'center',
+    justifyContent: 'space-around',
+    width: '85%',
+  },
+})
+
+const button = StyleSheet.create({
+  main: {
+    backgroundColor: '#6c5ce7',
+    padding: 20,
+    borderRadius: 5,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  seconds: {
+    backgroundColor: '#a29bfe',
+    width: '85%',
+    padding: 20,
+    margin: 5,
+    borderRadius: 5,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  active: {
+    backgroundColor: '#6c5ce7'
+  },
+  reset: {
+    backgroundColor: '#ff7675',
+    flex: 1,
+    padding: 20,
+    margin: 10,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  shareSpace: {
+    backgroundColor: 'lightblue',
+    width: '85%',
+    alignSelf: 'stretch',
+    flex: 1,
+    maxHeight: 100,
+  },
+  details: {
+    backgroundColor: '#39FC8B',
+    padding: 20,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+  },
+})
+
+const btnText = StyleSheet.create({
+  main: {
+    fontSize: 40,
+    alignSelf: 'center',
+    color: 'white',
+  },
+  time: {
+    fontSize: 25,
+    alignSelf: 'center',
+    color: 'white',
+  },
+  resetText: {
+    color: 'white',
+    fontSize: 25,
+    alignSelf: 'center',
+  },
+  details: {
+    fontSize: 35,
+    alignSelf: 'center',
+    color: 'white',
+  },
 })

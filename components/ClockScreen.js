@@ -9,14 +9,14 @@ export default class ClockScreen extends Component {
       styles.fullscreen = {
         paddingTop: 50,
         flex: 1,
-        backgroundColor: 'red',
+        backgroundColor: '#d63031',
         justifyContent: 'center',
         alignItems: 'center',
       }
     } else {
       styles.fullscreen = {
         paddingTop: 50,
-        backgroundColor: '#f9fbff',
+        backgroundColor: '#dfe6e9',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -27,7 +27,7 @@ export default class ClockScreen extends Component {
     // reset styles on exit
     styles.fullscreen = {
       paddingTop: 50,
-      backgroundColor: '#f9fbff',
+      backgroundColor: '#dfe6e9',
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',}
@@ -50,7 +50,7 @@ export default class ClockScreen extends Component {
 const styles = StyleSheet.create({
   fullscreen: {
     paddingTop: 50,
-    backgroundColor: '#f9fbff',
+    backgroundColor: '#dfe6e9',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

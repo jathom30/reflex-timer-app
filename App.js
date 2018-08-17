@@ -153,7 +153,6 @@ export default class App extends React.Component {
   }
 
   showDetails() {
-    let delta = this.state.userTime - this.state.time
     let deltaSum = this.state.deltaArray.reduce((total, delta) => total + delta)
     this.setState({
       details: !this.state.details,
@@ -208,27 +207,11 @@ export default class App extends React.Component {
             reflexHigh={this.state.reflexHigh}
             reflexAttempts={this.state.reflexAttempts}
             earlyAttempts={this.state.earlyAttempts}
+            deltaArray={this.state.deltaArray}
+            showDetails={this.showDetails}
             reset={this.reset} /> 
         }
 
-        {/* <ShowAllResults 
-          deltaArray={this.state.deltaArray}
-          reflexHigh={this.state.reflexHigh}
-          reflexLow={this.state.reflexLow}
-          reflexAverage={this.state.reflexAverage} />  */}
-
-        { 
-          this.state.details 
-          ? 
-          <ShowAllResults 
-            deltaArray={this.state.deltaArray}
-            reflexHigh={this.state.reflexHigh}
-            reflexLow={this.state.reflexLow}
-            reflexAverage={this.state.reflexAverage}
-            showDetails={this.showDetails} /> 
-          : 
-          null 
-        }
 
          {/* // ! Test component !
           <Test 
@@ -252,7 +235,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fbff',
+    backgroundColor: '#636e72',
     alignItems: 'stretch',
     justifyContent: 'space-around',
   },

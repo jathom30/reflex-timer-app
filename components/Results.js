@@ -24,7 +24,7 @@ export default class Results extends Component {
     return(
       <View style={styles.results}>
 
-        <Text>Results:</Text>
+        <Text style={[styles.resultsText, {fontWeight: 'bold'}]}>Results:</Text>
         <Text style={styles.resultsText}>{ this.props.reflexAttempts <= 1 ? 'Time:' : 'Last time:'} {this.formatNumbers(this.props.timeDelta)}</Text>
         
         {/* after more than one attempts, show fastest and slowest */}
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   resultsText: {
     fontSize: 25,
     padding: 5,
-    // color: 'white',
+    color: 'white',
   },
   reset: {
     backgroundColor: '#D75A5A',
