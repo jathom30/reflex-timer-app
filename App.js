@@ -38,6 +38,26 @@ export default class App extends React.Component {
     this.showDetails = this.showDetails.bind(this)
   }
 
+  // format numbers to decimals
+  formatNumbers(number) {
+    let fNum, arr
+    // if number is 3 digits
+    if (number < 1000 && number > 99) {
+      fNum = `0.${number}`
+      // if number is more than 3 digits
+    } else if (number >= 1000) {
+      arr = (''+number).split('')
+      fNum = arr[0] + '.' + arr[1] + arr[2] + arr[3]
+      // if number is 1 digit
+    } else if (number < 10) {
+      fNum = `0.00${number}`
+      // if number is 2 digits
+    } else if (number < 100) {
+      fNum = `0.0${number}`
+    }
+    return parseFloat(fNum)
+  }
+
   // start stopwatches(user and master) after countdown is finished
   startClock() {
     // start game-> sends to timer screen
@@ -74,7 +94,7 @@ export default class App extends React.Component {
       clearInterval(this.countdownTimer)
   
       // find delta and set
-      let delta = this.state.userTime - this.state.time
+      let delta = this.formatNumbers(this.state.userTime - this.state.time)
       // find delta average and set
       let reflexAverage, reflexLow, reflexHigh
       if (this.state.deltaArray.length === 0) {
@@ -103,7 +123,7 @@ export default class App extends React.Component {
         countdownTime: 3,
         // adds delta to deltaArray
         deltaArray: [...this.state.deltaArray, delta],
-        reflexAverage: Math.round(reflexAverage),
+        reflexAverage: reflexAverage,
         reflexHigh: reflexHigh,
         reflexLow: reflexLow,
         reflexAttempts: this.state.reflexAttempts + 1,
@@ -151,9 +171,10 @@ export default class App extends React.Component {
 
   showDetails() {
     let deltaSum = this.state.deltaArray.reduce((total, delta) => total + delta)
+    let deltaAverage = deltaSum / this.state.deltaArray.length
     this.setState({
       details: !this.state.details,
-      reflexAverage: Math.round(deltaSum / this.state.deltaArray.length)
+      reflexAverage: deltaAverage.toFixed(3)
     })
   }
 
