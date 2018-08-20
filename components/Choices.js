@@ -18,7 +18,7 @@ export default class Choices extends Component {
 
         {
           this.props.reflexAttempts > 0 ? 
-          <Results timeDelta={this.props.timeDelta} />
+          <Results timeDelta={this.props.timeDelta} tooLong={this.props.tooLong} />
           : 
           null 
         }

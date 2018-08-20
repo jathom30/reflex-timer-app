@@ -8,7 +8,7 @@ export default class Results extends Component {
       <View style={styles.results}>
 
         <Text style={{fontWeight: 'bold', color: 'white', alignSelf: 'center', fontSize: 40}}>Time:</Text>
-        <Text style={styles.resultsText}>{this.props.timeDelta} sec</Text>
+        <Text style={styles.resultsText}>{this.props.tooLong ? 'Too long, try again' : this.props.timeDelta + ' sec'}</Text>
 
       </View>
     )

@@ -28,7 +28,8 @@ export default class StartScreen extends Component {
               reflexHigh={this.props.reflexHigh}
               earlyAttempts={this.props.earlyAttempts}
               reflexAverage={this.props.reflexAverage}
-              reset={this.props.reset} />
+              reset={this.props.reset}
+              tooLong={this.props.tooLong} />
             :
             <ShowAllResults 
               deltaArray={this.props.deltaArray}

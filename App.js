@@ -24,6 +24,7 @@ export default class App extends React.Component {
       reflexAttempts: 0,
       earlyAttempts: 0,
       details: false,
+      tooLong: false,
     }
     this.startClock = this.startClock.bind(this)
     this.threeSecDelay = this.threeSecDelay.bind(this)
@@ -94,40 +95,55 @@ export default class App extends React.Component {
       clearInterval(this.countdownTimer)
   
       // find delta and set
-      let delta = this.formatNumbers(this.state.userTime - this.state.time)
-      // find delta average and set
-      let reflexAverage, reflexLow, reflexHigh
-      if (this.state.deltaArray.length === 0) {
-        reflexAverage = delta
-        reflexHigh = delta
-        reflexLow = delta
-      } else if (this.state.deltaArray.length > 0) {
-        reflexLow = Math.min(...this.state.deltaArray)
-        reflexHigh = Math.max(...this.state.deltaArray)
+      let originalDelta = this.state.userTime - this.state.time
+      let delta = this.formatNumbers(originalDelta)
 
-        // if delta is lower/higher than current state of array
-        if (delta > reflexHigh) {
+      // if delta is over 10 sec, don't record
+      if (originalDelta >= 10000) {
+        this.setState({
+          start: false,
+          internalTime: 0,
+          randomNumber: 0,
+          time: 0,
+          userTime: 0,
+          countdownTime: 3,
+          tooLong: true,
+        })
+      } else {
+        // find delta average and set
+        let reflexAverage, reflexLow, reflexHigh
+        if (this.state.deltaArray.length === 0) {
+          reflexAverage = delta
           reflexHigh = delta
-        }
-        if (delta < reflexLow) {
           reflexLow = delta
+        } else if (this.state.deltaArray.length > 0) {
+          reflexLow = Math.min(...this.state.deltaArray)
+          reflexHigh = Math.max(...this.state.deltaArray)
+  
+          // if delta is lower/higher than current state of array
+          if (delta > reflexHigh) {
+            reflexHigh = delta
+          }
+          if (delta < reflexLow) {
+            reflexLow = delta
+          }
         }
+        this.setState({
+          timeDelta: delta,
+          start: false,
+          internalTime: 0,
+          randomNumber: 0,
+          time: 0,
+          userTime: 0,
+          countdownTime: 3,
+          // adds delta to deltaArray
+          deltaArray: [...this.state.deltaArray, delta],
+          reflexAverage: reflexAverage,
+          reflexHigh: reflexHigh,
+          reflexLow: reflexLow,
+          reflexAttempts: this.state.reflexAttempts + 1,
+        })
       }
-      this.setState({
-        timeDelta: delta,
-        start: false,
-        internalTime: 0,
-        randomNumber: 0,
-        time: 0,
-        userTime: 0,
-        countdownTime: 3,
-        // adds delta to deltaArray
-        deltaArray: [...this.state.deltaArray, delta],
-        reflexAverage: reflexAverage,
-        reflexHigh: reflexHigh,
-        reflexLow: reflexLow,
-        reflexAttempts: this.state.reflexAttempts + 1,
-      })
     } else {
       this.setState({
         earlyAttempts: this.state.earlyAttempts + 1,
@@ -144,6 +160,7 @@ export default class App extends React.Component {
       reflexAttempts: 0,
       earlyAttempts: 0,
       details: false,
+      tooLong: false,
     })
   }
 
@@ -229,7 +246,8 @@ export default class App extends React.Component {
               earlyAttempts={this.state.earlyAttempts}
               deltaArray={this.state.deltaArray}
               showDetails={this.showDetails}
-              reset={this.reset} /> 
+              reset={this.reset}
+              tooLong={this.state.tooLong} /> 
           }
 
 
