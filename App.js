@@ -1,12 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Image, ImageBackground } from 'react-native';
 
 
 import StartScreen from './components/StartScreen'
 import ClockScreen from './components/ClockScreen'
-import Button from './components/Button'
-// import Test from './components/Test'
-import ShowAllResults from './components/ShowAllResults';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -178,55 +175,57 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <ImageBackground source={require('./assets/background.png')} style={styles.background}>
+          {this.state.start ? null : <Image source={require('./assets/reflexing-logo.png')} style={styles.logo} />}
 
-        {
-          this.state.start 
-          ? 
-          <ClockScreen 
-            stopClock={this.stopClock}
-            time={this.state.time}
-            userTime={this.state.userTime}
-            countdownTime={this.state.countdownTime}
-            randomNumber={this.state.randomNumber}
-            btnDisabled={this.state.btnDisabled}
-            start={this.state.start} /> 
-          : 
-          <StartScreen 
-            start={this.state.start}
-            details={this.state.details}
-            showDetails={this.showDetails}
-            fiveSec={this.fiveSec}
-            activeClass={this.state.activeClass}
-            tenSec={this.tenSec}
-            fifteenSec={this.fifteenSec}
-            maxRandom={this.state.maxRandom}
-            timeDelta={this.state.timeDelta}
-            startClock={this.startClock}
-            reflexAverage={this.state.reflexAverage}
-            reflexLow={this.state.reflexLow}
-            reflexHigh={this.state.reflexHigh}
-            reflexAttempts={this.state.reflexAttempts}
-            earlyAttempts={this.state.earlyAttempts}
-            deltaArray={this.state.deltaArray}
-            showDetails={this.showDetails}
-            reset={this.reset} /> 
-        }
+          {
+            this.state.start 
+            ? 
+            <ClockScreen 
+              stopClock={this.stopClock}
+              time={this.state.time}
+              userTime={this.state.userTime}
+              countdownTime={this.state.countdownTime}
+              randomNumber={this.state.randomNumber}
+              btnDisabled={this.state.btnDisabled}
+              start={this.state.start} /> 
+            : 
+            <StartScreen 
+              start={this.state.start}
+              details={this.state.details}
+              showDetails={this.showDetails}
+              fiveSec={this.fiveSec}
+              activeClass={this.state.activeClass}
+              tenSec={this.tenSec}
+              fifteenSec={this.fifteenSec}
+              maxRandom={this.state.maxRandom}
+              timeDelta={this.state.timeDelta}
+              startClock={this.startClock}
+              reflexAverage={this.state.reflexAverage}
+              reflexLow={this.state.reflexLow}
+              reflexHigh={this.state.reflexHigh}
+              reflexAttempts={this.state.reflexAttempts}
+              earlyAttempts={this.state.earlyAttempts}
+              deltaArray={this.state.deltaArray}
+              showDetails={this.showDetails}
+              reset={this.reset} /> 
+          }
 
 
-         {/* // ! Test component !
-          <Test 
-            time={this.state.time}
-            userTime={this.state.userTime}
-            randomNumber={this.state.randomNumber}
-            countdownTime={this.state.countdownTime}
-            delta={this.state.delta}
-            reflexLow={this.state.reflexLow}
-            reflexHigh={this.state.reflexHigh}
-            reflexAverage={this.state.reflexAverage}
-            reflexAttempts={this.state.reflexAttempts}
-            earlyAttempts={this.state.earlyAttempts}
-            start={this.state.start} /> */}
-
+          {/* // ! Test component !
+            <Test 
+              time={this.state.time}
+              userTime={this.state.userTime}
+              randomNumber={this.state.randomNumber}
+              countdownTime={this.state.countdownTime}
+              delta={this.state.delta}
+              reflexLow={this.state.reflexLow}
+              reflexHigh={this.state.reflexHigh}
+              reflexAverage={this.state.reflexAverage}
+              reflexAttempts={this.state.reflexAttempts}
+              earlyAttempts={this.state.earlyAttempts}
+              start={this.state.start} /> */}
+        </ImageBackground>
       </View>
     );
   }
@@ -235,11 +234,21 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#636e72',
-    alignItems: 'stretch',
-    justifyContent: 'space-around',
+    backgroundColor: '#6C5CE7',
   },
-  mainHeader: {
-    fontSize: 40,
+  logo: {
+    height: 74.3,
+    width: 203,
+    alignSelf: 'center',
+    marginBottom: 10,
   },
+  background: {
+    width: '100%',
+    height: '100%',
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 25,
+    paddingTop: 50,
+    justifyContent: 'space-between',
+  }
 });

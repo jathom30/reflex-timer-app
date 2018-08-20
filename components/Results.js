@@ -24,19 +24,18 @@ export default class Results extends Component {
     return(
       <View style={styles.results}>
 
-        <Text style={[styles.resultsText, {fontWeight: 'bold'}]}>Results:</Text>
-        <Text style={styles.resultsText}>{ this.props.reflexAttempts <= 1 ? 'Time:' : 'Last time:'} {this.formatNumbers(this.props.timeDelta)}</Text>
+        <Text style={{fontWeight: 'bold', color: 'white', alignSelf: 'center', fontSize: 40}}>Time:</Text>
+        <Text style={styles.resultsText}>{this.formatNumbers(this.props.timeDelta)}</Text>
         
-        {/* after more than one attempts, show fastest and slowest */}
-        {
+        {/* {
           this.props.reflexAttempts <= 1 
           ? 
           null 
           :
-          <Text style={styles.resultsText}>Attempts: {this.props.reflexAttempts}</Text>
-        }
+          <Text style={{fontWeight: 'bold', color: 'white', alignSelf: 'center', fontSize: 20}}>Attempts: {this.props.reflexAttempts}</Text>
+        } */}
         {/*  Early hits */}
-        {this.props.earlyAttempts !== 0 ? <Text style={styles.resultsText}>Early Hits: {this.props.earlyAttempts}</Text> : null }
+        {/* {this.props.earlyAttempts !== 0 ? <Text style={{fontWeight: 'bold', color: 'white', alignSelf: 'center', fontSize: 20}}>Early Hits: {this.props.earlyAttempts}</Text> : null } */}
 
       </View>
     )
@@ -49,13 +48,14 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   resultsText: {
-    fontSize: 25,
+    fontSize: 75,
     padding: 5,
     color: 'white',
+    fontWeight: 'bold',
   },
   reset: {
     backgroundColor: '#D75A5A',
-    width: '50%',
+    // width: '50%',
     padding: 10,
     borderRadius: 20,
     marginTop: 10,

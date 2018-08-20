@@ -9,7 +9,7 @@ export default class Choices extends Component {
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.subHeader}>Set your max limit</Text>
+          <Text style={styles.subHeader}>Select random max time</Text>
           // TODO: create active class for button
           <Button title="5 seconds" touchableStyle={this.props.maxRandom === 5000 ? [button.seconds, button.active] : button.seconds } btnTextStyle={button.time} activatePress={this.props.fiveSec} />
           <Button title="10 seconds" touchableStyle={this.props.maxRandom === 10000 ? [button.seconds, button.active] : button.seconds } btnTextStyle={button.time} activatePress={this.props.tenSec} />
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'yellow',
   },
   subHeader: {
-    fontSize: 30,
+    fontSize: 28,
     textAlign: 'center',
     marginBottom: 10,
     color: 'white',
@@ -50,15 +50,20 @@ const styles = StyleSheet.create({
 
 const button = StyleSheet.create({
   seconds: {
-    backgroundColor: '#a29bfe',
-    width: '85%',
-    padding: 20,
-    margin: 5,
+    backgroundColor: '#81ECEC',
+    // width: '93.3333%',
+    padding: 10,
+    marginBottom: 20,
     borderRadius: 5,
-    alignSelf: 'center',
-    justifyContent: 'center',
+    alignSelf: 'stretch',
+    // justifyContent: 'stretch',
   },
   active: {
-    backgroundColor: '#6c5ce7'
+    backgroundColor: '#00CEC9'
   },
+  time: {
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 41,
+  }
 })

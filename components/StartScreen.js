@@ -11,7 +11,6 @@ export default class StartScreen extends Component {
   render() {
     return(
       <View style={this.props.reflexAttempts === 0 ? [styles.container, {marginBottom: 50}] : styles.container}>
-        <Text style={styles.mainHeader}>{!this.props.details ? "Test your reflexes" : "Full Results"}</Text>
           
           {/* show either second buttons or data */}
           {
@@ -37,25 +36,24 @@ export default class StartScreen extends Component {
               reflexLow={this.props.reflexLow}
               reflexAttempts={this.props.reflexAttempts}
               reflexAverage={this.props.reflexAverage}
+              earlyAttempts={this.props.earlyAttempts}
               showDetails={this.props.showDetails}
               startClock={this.props.startClock}
               reset={this.props.reset} />
           }
 
           {/* show results button if more than 1 attempt */}
-          {this.props. reflexAttempts > 1 ? <Button title={this.props.details ? "Hide" : "Full Results"} touchableStyle={[button.seconds, {backgroundColor: '#55efc4'}]} btnTextStyle={btnText.details} activatePress={this.props.showDetails} /> : null}
+          {this.props. reflexAttempts > 1 ? <Button title={this.props.details ? "Hide" : "Full Results"} touchableStyle={[button.seconds, {backgroundColor: '#74B9FF', alignSelf: 'stretch'}]} btnTextStyle={btnText.resetText} activatePress={this.props.showDetails} /> : null}
 
           {/* Show reset button if attempts is great than 0 */}
-          <View style={{alignItems: 'center'}}>
-            <View style={styles.buttonGroup}>
-              { this.props.reflexAttempts !== 0 ?
-                <Button title="Reset" touchableStyle={[button.reset, {marginRight: 2.5}]} btnTextStyle={btnText.resetText} activatePress={this.props.reset} />
-                :
-                null
-              }
+          <View style={this.props.reflexAttempts !== 0 ? [styles.buttonGroup, {alignItems: 'center'}] : null }>
+            { this.props.reflexAttempts !== 0 ?
+              <Button title="Reset" touchableStyle={[button.reset, {width: '47.5%'}]} btnTextStyle={btnText.resetText} activatePress={this.props.reset} />
+              :
+              null
+            }
 
-              <Button title={this.props.reflexAttempts === 0 ? 'S T A R T' : 'Try Again?' } touchableStyle={this.props.reflexAttempts === 0 ? [button.reset, {backgroundColor: '#74b9ff', width: '85%'}] : [button.reset, {backgroundColor: '#74b9ff', marginLeft: 2.5}]} btnTextStyle={btnText.resetText} activatePress={this.props.startClock} />
-            </View>
+            <Button title={this.props.reflexAttempts === 0 ? 'S T A R T' : 'Retry?' } touchableStyle={this.props.reflexAttempts !== 0 ? [button.reset, {backgroundColor: '#0984e3', width: '47.5%'}] : [button.reset, {backgroundColor: '#0984e3'}]} btnTextStyle={btnText.resetText} activatePress={this.props.startClock} />
           </View>
           
       </View>
@@ -72,14 +70,6 @@ const styles = StyleSheet.create({
     // marginTop: 50,
     // marginBottom: 50,
   },
-  mainHeader: {
-    fontSize: 50,
-    textAlign: 'center',
-    backgroundColor: '#2d3436',
-    color: 'white',
-    paddingTop: 50,
-    paddingBottom: 10,
-  },
   subHeader: {
     fontSize: 30,
     textAlign: 'center',
@@ -87,14 +77,8 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   buttonGroup: {
-    // flex: 1,
     flexDirection: 'row',
-    paddingBottom: 50,
-    // height: 200,
-    // backgroundColor: 'pink',
-    // alignItems: 'center',
     justifyContent: 'space-between',
-    width: '85%',
   },
 });
 
@@ -107,39 +91,38 @@ const button = StyleSheet.create({
     justifyContent: 'center',
   },
   seconds: {
-    backgroundColor: '#a29bfe',
-    width: '85%',
-    padding: 20,
-    margin: 5,
+    backgroundColor: '#81ECEC',
+    // width: '93.3333%',
+    padding: 10,
+    marginBottom: 20,
     borderRadius: 5,
-    alignSelf: 'center',
+    alignSelf: 'stretch',
     justifyContent: 'center',
   },
   active: {
     backgroundColor: '#6c5ce7'
   },
   reset: {
-    backgroundColor: '#ff7675',
-    flex: 1,
-    padding: 20,
+    backgroundColor: '#D63031',
+    // width: '93.3333%',
+    padding: 10,
     // margin: 10,
     borderRadius: 5,
-    // width: '45%'
-    // marginLeft: 5
-    // marginTop: 10,
+    // alignSelf: 'stretch',
+    // justifyContent: 'center',
   },
   shareSpace: {
     backgroundColor: 'lightblue',
-    width: '85%',
+    // width: '85%',
     alignSelf: 'stretch',
     flex: 1,
     maxHeight: 100,
   },
   details: {
     backgroundColor: '#39FC8B',
-    padding: 20,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
+    padding: 10,
+    // alignSelf: 'stretch',
+    // justifyContent: 'center',
   },
 })
 
@@ -156,8 +139,9 @@ const btnText = StyleSheet.create({
   },
   resetText: {
     color: 'white',
-    fontSize: 25,
+    fontSize: 41,
     alignSelf: 'center',
+    fontWeight: 'bold',
   },
   details: {
     fontSize: 35,

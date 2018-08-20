@@ -35,9 +35,9 @@ export default class ClockScreen extends Component {
 
   render() {
     return(
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, position: 'absolute', left: 0, right: 0, top: 0, bottom: 0,}}>
         <TouchableOpacity style={styles.fullscreen} onPress={this.props.stopClock}>
-          <Text>When the screen turns red, tap anywhere</Text>
+          <Text style={{textAlign: 'center', fontSize: 20, width: 260}}>When the screen turns red, press anywhere</Text>
           <View style={styles.countdown}>
             <Text style={styles.countdownText}>{this.props.countdownTime === 0 ? null : this.props.countdownTime}</Text>
           </View>
@@ -49,11 +49,11 @@ export default class ClockScreen extends Component {
 
 const styles = StyleSheet.create({
   fullscreen: {
-    paddingTop: 50,
     backgroundColor: '#dfe6e9',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 50,
   },
   countdown: {
     flex: 1,
@@ -61,6 +61,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   countdownText: {
-    fontSize: 150,
+    fontSize: 300,
+    fontWeight: 'bold',
+    marginTop: -50,
   }
 })
