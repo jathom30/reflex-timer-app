@@ -109,6 +109,7 @@ const button = StyleSheet.create({
     padding: 10,
     // margin: 10,
     borderRadius: 5,
+    // alignSelf: 'center',
     // alignSelf: 'stretch',
     // justifyContent: 'center',
   },
@@ -122,6 +123,7 @@ const button = StyleSheet.create({
   details: {
     backgroundColor: '#39FC8B',
     padding: 10,
+    
     // alignSelf: 'stretch',
     // justifyContent: 'center',
   },
@@ -137,12 +139,16 @@ const btnText = StyleSheet.create({
     fontSize: 25,
     alignSelf: 'center',
     color: 'white',
+    width: '50%',
   },
   resetText: {
     color: 'white',
     fontSize: 41,
     alignSelf: 'center',
     fontWeight: 'bold',
+    width: '50%',
+    alignSelf: 'center',
+    textAlign: 'center',
   },
   details: {
     fontSize: 35,

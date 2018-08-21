@@ -7,26 +7,26 @@ export default class ShowAllResults extends Component {
   render() {
 
     let eachResult = this.props.deltaArray.map((number, index) =>
-      <Text style={styles.dataBlock} key={index}><Text style={styles.bold}>{index + 1}:</Text> {number} sec</Text>
+      <Text style={styles.dataBlock} key={index}><Text adjustsFontSizeToFit numberOfLines={1} minimumFontScale={.25} style={styles.bold}>{index + 1}:</Text> {number} sec</Text>
     )
 
     return(
       <View style={styles.main}>
 
         <View>
-          <Text style={styles.header}>Attempts</Text>
+          <Text adjustsFontSizeToFit numberOfLines={1} minimumFontScale={.25} style={styles.header}>Attempts</Text>
           <View style={styles.dataRow}>
             {eachResult}
           </View>
         </View>
 
-        <View>
-          <Text style={styles.header}>Highs and Lows</Text>
+        <View style={{height: '50%'}}>
+          <Text adjustsFontSizeToFit numberOfLines={1} minimumFontScale={.25} style={styles.header}>Highs and Lows</Text>
           <View style={styles.data}>
-            <Text style={styles.dataCell}><Text style={styles.bold}>Slowest Time:</Text> {this.props.reflexHigh} sec</Text>
-            <Text style={styles.dataCell}><Text style={styles.bold}>Fastest Time:</Text> {this.props.reflexLow} sec</Text>
-            <Text style={styles.dataCell}><Text style={styles.bold}>Average:</Text> {this.props.reflexAverage} sec</Text>
-            {this.props.earlyAttempts === 0 ? null : <Text style={styles.dataCell}><Text style={styles.bold}>Early Hits:</Text> {this.props.earlyAttempts}</Text>}
+            <Text adjustsFontSizeToFit numberOfLines={1} minimumFontScale={.25} style={styles.dataCell}><Text style={styles.bold}>Slowest Time:</Text> {this.props.reflexHigh} sec</Text>
+            <Text adjustsFontSizeToFit numberOfLines={1} minimumFontScale={.25} style={styles.dataCell}><Text style={styles.bold}>Fastest Time:</Text> {this.props.reflexLow} sec</Text>
+            <Text adjustsFontSizeToFit numberOfLines={1} minimumFontScale={.25} style={styles.dataCell}><Text style={styles.bold}>Average:</Text> {this.props.reflexAverage} sec</Text>
+            {this.props.earlyAttempts === 0 ? null : <Text adjustsFontSizeToFit numberOfLines={1} minimumFontScale={.25} style={styles.dataCell}><Text style={styles.bold}>Early Hits:</Text> {this.props.earlyAttempts}</Text>}
           </View>
         </View>
 
@@ -53,6 +53,8 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     color: 'white',
     fontWeight: 'bold',
+    width: '50%',
+    alignSelf: 'center'
   },
   subHeader: {
     fontSize: 35,

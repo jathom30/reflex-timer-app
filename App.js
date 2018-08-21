@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Image, ImageBackground } from 'react-native';
-
+import { Asset, AppLoading } from 'expo';
+Asset;
 
 import StartScreen from './components/StartScreen'
 import ClockScreen from './components/ClockScreen'
@@ -17,14 +18,15 @@ export default class App extends React.Component {
       userTime: 0,
       countdownTime: 3,
       timeDelta: 0,
-      deltaArray: [],
+      deltaArray: [200,230,250],
       reflexAverage: 0,
       reflexHigh: 0,
       reflexLow: 0,
-      reflexAttempts: 0,
-      earlyAttempts: 0,
-      details: false,
+      reflexAttempts: 3,
+      earlyAttempts: 1,
+      details: true,
       tooLong: false,
+      isReady: false,
     }
     this.startClock = this.startClock.bind(this)
     this.threeSecDelay = this.threeSecDelay.bind(this)
@@ -211,6 +213,17 @@ export default class App extends React.Component {
 
   
   render() {
+
+    if (!this.state.isReady) {
+      return (
+        <AppLoading
+          startAsync={this._cacheResourcesAsync}
+          onFinish={() => this.setState({ isReady: true })}
+          onError={console.warn}
+        />
+      )
+    }
+
     return (
       <View style={styles.container}>
         <ImageBackground source={require('./assets/background.png')} style={styles.background}>
@@ -268,6 +281,19 @@ export default class App extends React.Component {
       </View>
     );
   }
+
+  async _cacheResourcesAsync() {
+    const images = [
+      require('./assets/background.png'),
+      require('./assets/reflexing-logo.png'),
+    ];
+
+    const cacheImages = images.map((image) => {
+      return Asset.fromModule(image).downloadAsync();
+    });
+    return Promise.all(cacheImages)
+  }
+
 }
 
 const styles = StyleSheet.create({

@@ -9,7 +9,7 @@ export default class Choices extends Component {
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.subHeader}>Select random max time</Text>
+          <Text adjustsFontSizeToFit numberOfLines={1} minimumFontScale={.25} style={styles.subHeader}>Select random max time</Text>
           // TODO: create active class for button
           <Button title="5 seconds" touchableStyle={this.props.maxRandom === 5000 ? [button.seconds, button.active] : button.seconds } btnTextStyle={button.time} activatePress={this.props.fiveSec} />
           <Button title="10 seconds" touchableStyle={this.props.maxRandom === 10000 ? [button.seconds, button.active] : button.seconds } btnTextStyle={button.time} activatePress={this.props.tenSec} />
@@ -38,6 +38,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 10,
     color: 'white',
+    width: '75%',
+    alignSelf: 'center',
   },
 })
 
@@ -58,5 +60,7 @@ const button = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     fontSize: 41,
+    width: '50%',
+    alignSelf: 'center',
   }
 })
