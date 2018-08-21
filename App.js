@@ -23,7 +23,7 @@ export default class App extends React.Component {
       reflexHigh: 0,
       reflexLow: 0,
       reflexAttempts: 3,
-      earlyAttempts: 1,
+      earlyAttempts: 2,
       details: true,
       tooLong: false,
       isReady: false,

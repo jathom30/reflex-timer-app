@@ -97,6 +97,7 @@ const button = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
     borderRadius: 5,
+    height: 50,
     alignSelf: 'stretch',
     justifyContent: 'center',
   },
@@ -109,6 +110,7 @@ const button = StyleSheet.create({
     padding: 10,
     // margin: 10,
     borderRadius: 5,
+    height: 50,
     // alignSelf: 'center',
     // alignSelf: 'stretch',
     // justifyContent: 'center',
@@ -123,7 +125,7 @@ const button = StyleSheet.create({
   details: {
     backgroundColor: '#39FC8B',
     padding: 10,
-    
+
     // alignSelf: 'stretch',
     // justifyContent: 'center',
   },

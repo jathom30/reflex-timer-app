@@ -7,7 +7,7 @@ export default class Results extends Component {
     return(
       <View style={styles.results}>
 
-        <Text adjustsFontSizeToFit minimumFontScale={.25} style={{fontWeight: 'bold', color: 'white', alignSelf: 'center', textAlign: 'center', fontSize: 40, width: '50%',}}>Time:</Text>
+        {/* <Text adjustsFontSizeToFit minimumFontScale={.25} style={{fontWeight: 'bold', color: 'white', alignSelf: 'center', textAlign: 'center', fontSize: 40, width: '50%',}}>Time:</Text> */}
         <Text adjustsFontSizeToFit numberOfLines={1} minimumFontScale={.25} style={styles.resultsText}>{this.props.tooLong ? 'Too long, try again' : this.props.timeDelta + ' sec'}</Text>
 
       </View>
@@ -19,8 +19,10 @@ const styles = StyleSheet.create({
   results: {
     alignItems: 'center',
     padding: 10,
-    // flex: 1,
+    flex: 1,
     justifyContent: 'center',
+    // backgroundColor: 'black',
+    alignItems: 'center',
   },
   resultsText: {
     fontSize: 75,
